@@ -17,23 +17,35 @@ This project implements a real-time system for detecting and recognizing Egyptia
 - [Contributing](#contributing)
 - [License](#license)
 
+
+Memory updated
+Certainly! Here's an updated version of the README.md file with a section to include the research paper link:
+
+Egyptian Car Plates Recognition in Real-Time
+This project is focused on the detection and recognition of Egyptian car license plates in real-time using the YOLOv8 model and Optical Character Recognition (OCR) techniques. The system is designed to accurately identify vehicles and read license plate numbers in various conditions.
+
 ## Project Overview
+Features:
+YOLOv8 Model: Used for detecting vehicles in real-time.
+OCR with EasyOCR: For reading and interpreting the license plate numbers.
+SORT Tracking Algorithm: To maintain consistent tracking of vehicles across frames.
 
-The main goal of this project is to develop an efficient real-time system that can detect and recognize Egyptian car plates from video streams. The system utilizes YOLOv8 for detecting cars and license plates and EasyOCR for reading the license plate numbers.
-
-## Features
-
-- **Real-time detection**: Process video frames in real-time.
-- **High accuracy**: Corrects OCR errors using predefined mappings specific to Egyptian license plates.
-- **CSV Logging**: Saves detection results to a CSV file.
+##Workflow:
+Vehicle Detection: The YOLOv8 model detects vehicles within the video feed.
+License Plate Detection: A custom-trained YOLOv8 model identifies license plates on the detected vehicles.
+License Plate Recognition: The EasyOCR library reads the license numbers, applying format checks and corrections for better accuracy.
+Tracking: The SORT algorithm keeps track of vehicles across frames, ensuring accurate association of license plates with the correct vehicles.
 
 ## Requirements
 
-- Python 3.x
+- Python 
 - OpenCV
 - PyTorch
 - EasyOCR
 - YOLOv8 (Ultralytics)
 
 You can install the required Python libraries using the `requirements.txt` file.
+
+Research Paper
+This project is based on research conducted on Egyptian car plate recognition systems. You can read the full paper here.
 
