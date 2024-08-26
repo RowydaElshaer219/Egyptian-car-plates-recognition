@@ -1,7 +1,5 @@
 # Egyptian-car-plates-recognition
-Certainly! Below is a sample `README.md` file for your project, "Egyptian Car Plates Recognition in Real-Time":
 
----
 
 # Egyptian Car Plates Recognition in Real-Time
 
