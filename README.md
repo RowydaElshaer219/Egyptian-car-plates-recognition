@@ -46,7 +46,7 @@ Tracking: The SORT algorithm keeps track of vehicles across frames, ensuring acc
 
 You can install the required Python libraries using the `requirements.txt` file.
 
-Research Paper
+## Research Paper
 This project is based on research conducted on Egyptian car plate recognition systems. You can read the full paper ([here](https://lnkd.in/dk25WRCp
 )).
 
