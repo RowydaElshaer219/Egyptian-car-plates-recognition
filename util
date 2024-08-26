@@ -1,8 +1,10 @@
 import string
 import easyocr
 
+# Initialize the text reader using EasyOCR for Arabic and English languages
 reader = easyocr.Reader(['ar', 'en'], gpu=False)
 
+# Dictionary to map characters to digits
 dict_char_to_int = {'O': '0',
                     'I': '1',
                     'J': '3',
@@ -10,6 +12,7 @@ dict_char_to_int = {'O': '0',
                     'G': '6',
                     'S': '5'}
 
+# Dictionary to map digits to characters
 dict_int_to_char = {'0': 'O',
                     '1': 'I',
                     '3': 'J',
@@ -17,9 +20,8 @@ dict_int_to_char = {'0': 'O',
                     '6': 'G',
                     '5': 'S'}
 
-
+# Function to write the results to a CSV file
 def write_csv(results, output_path):
-   
     with open(output_path, 'w') as f:
         f.write('{},{},{},{},{},{},{}\n'.format('frame_nmr', 'car_id', 'car_bbox',
                                                 'license_plate_bbox', 'license_plate_bbox_score', 'license_number',
@@ -49,9 +51,8 @@ def write_csv(results, output_path):
                             )
         f.close()
 
-
+# Function to check if the text matches the plate format
 def license_complies_format(text):
-    
     if len(text) != 6:
         return False
 
@@ -61,18 +62,15 @@ def license_complies_format(text):
        (text[3] in string.ascii_uppercase or text[3] in dict_int_to_char.keys()) and \
        (text[4] in string.ascii_uppercase or text[4] in dict_int_to_char.keys()) and \
        (text[5] in string.ascii_uppercase or text[5] in dict_int_to_char.keys()):
-       
-        
-         return True
+        return True
     else:
-         return False
+        return False
 
-
+# Function to format the text to the correct license plate format
 def format_license(text):
-   
     license_plate_ = ''
-    mapping = {0: dict_int_to_int, 1: dict_int_to_int, 2: dict_int_to_int, 3: dict_int_to_char, 4: dict_int_to_char,
-               5: dict_char_to_char}
+    mapping = {0: dict_char_to_int, 1: dict_char_to_int, 2: dict_char_to_int, 3: dict_int_to_char, 4: dict_int_to_char,
+               5: dict_int_to_char}
     for j in [0, 1, 2, 3, 4, 5]:
         if text[j] in mapping[j].keys():
             license_plate_ += mapping[j][text[j]]
@@ -81,15 +79,12 @@ def format_license(text):
 
     return license_plate_
 
-
+# Function to read the license plate from the cropped image
 def read_license_plate(license_plate_crop):
-    
-
     detections = reader.readtext(license_plate_crop)
 
     for detection in detections:
         bbox, text, score = detection
-
         text = text.upper().replace(' ', '')
 
         if license_complies_format(text):
@@ -97,9 +92,8 @@ def read_license_plate(license_plate_crop):
 
     return None, None
 
-
+# Function to find the car that contains the specific license plate
 def get_car(license_plate, vehicle_track_ids):
-   
     x1, y1, x2, y2, score, class_id = license_plate
 
     foundIt = False
@@ -115,3 +109,17 @@ def get_car(license_plate, vehicle_track_ids):
         return vehicle_track_ids[car_indx]
 
     return -1, -1, -1, -1, -1
+
+# Function to update the results with extracted information
+def update_results(results, frame_nmr, car_id, car_bbox, license_plate_bbox, license_plate_bbox_score, license_number, license_number_score):
+    if frame_nmr not in results.keys():
+        results[frame_nmr] = {}
+
+    if car_id not in results[frame_nmr].keys():
+        results[frame_nmr][car_id] = {}
+
+    results[frame_nmr][car_id]['car'] = {'bbox': car_bbox}
+    results[frame_nmr][car_id]['license_plate'] = {'bbox': license_plate_bbox,
+                                                   'bbox_score': license_plate_bbox_score,
+                                                   'text': license_number,
+                                                   'text_score': license_number_score}
