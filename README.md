@@ -28,7 +28,7 @@ YOLOv8 Model: Used for detecting vehicles in real-time.
 OCR with EasyOCR: For reading and interpreting the license plate numbers.
 SORT Tracking Algorithm: To maintain consistent tracking of vehicles across frames.
 
-##Workflow:
+Workflow:
 Vehicle Detection: The YOLOv8 model detects vehicles within the video feed.
 License Plate Detection: A custom-trained YOLOv8 model identifies license plates on the detected vehicles.
 License Plate Recognition: The EasyOCR library reads the license numbers, applying format checks and corrections for better accuracy.
