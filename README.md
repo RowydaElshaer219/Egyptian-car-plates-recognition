@@ -1,5 +1,3 @@
-# Egyptian-car-plates-recognition
-
 
 # Egyptian Car Plates Recognition in Real-Time
 
