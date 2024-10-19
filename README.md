@@ -1,5 +1,5 @@
 
-# Egyptian Car Plates Recognition in Real-Time
+# Egyptian Car Plates Recognition 
 
 This project implements a real-time system for detecting and recognizing Egyptian car license plates using YOLOv8 for object detection and EasyOCR for optical character recognition (OCR). The system processes video frames, detects cars and their corresponding license plates, and extracts the license plate numbers with high accuracy.
 
